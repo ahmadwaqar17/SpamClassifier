@@ -1,8 +1,14 @@
+"""
+API Server for Spam Detection
+
+This module provides a Flask API server for the spam detection service.
+"""
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 
-from spam_classifier import SpamClassifier
+from spam_detection_service import SpamClassifier
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -14,24 +20,24 @@ classifier = SpamClassifier()
 def classify_message():
     """API endpoint to classify a message as spam or ham"""
     data = request.json
-
+    
     if not data or 'message' not in data:
         return jsonify({'error': 'No message provided'}), 400
-
+    
     message = data['message']
-
+    
     try:
         # Ensure the model is loaded
         if not classifier.load_model():
             # If model doesn't exist, train it
             print("Training model...")
             classifier.train('spam.csv')
-
+        
         # Classify the message
         result = classifier.predict(message)
-
+        
         return jsonify(result)
-
+    
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -41,7 +47,7 @@ def train_model():
     try:
         accuracy = classifier.train('spam.csv')
         return jsonify({
-            'success': True,
+            'success': True, 
             'accuracy': accuracy
         })
     except Exception as e:
@@ -96,7 +102,7 @@ def get_nlp_techniques():
             ]
         }
     ]
-
+    
     return jsonify(techniques)
 
 @app.route('/api/health', methods=['GET'])
@@ -108,5 +114,5 @@ if __name__ == '__main__':
     # Force retrain the model with our improved implementation
     print("Training model with improved NLP techniques...")
     classifier.train('spam.csv')
-
+    
     app.run(debug=True, host='0.0.0.0', port=5000)

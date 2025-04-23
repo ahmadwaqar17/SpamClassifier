@@ -1,6 +1,6 @@
  # SMS Spam Detection Web Application
 
-A web application for classifying SMS messages as spam or ham using Natural Language Processing techniques.
+A modern web application for classifying SMS messages as spam or ham using advanced Natural Language Processing (NLP) techniques implemented from scratch.
 
 ## Project Overview
 
@@ -23,25 +23,28 @@ The system achieves high accuracy (98.21%) in distinguishing between spam and le
 ## Technologies Used
 
 ### Backend
-- Python
-- Flask
-- NLTK
-- scikit-learn
-- pandas
-- numpy
+- **Python**: Core programming language
+- **Flask**: Lightweight web framework for API endpoints
+- **NumPy**: Numerical computing for vector operations
+- **Pandas**: Data manipulation for dataset handling
+- **Custom NLP Implementation**: All NLP techniques implemented from scratch
+  - Text preprocessing (normalization, cleaning, tokenization)
+  - TF-IDF vectorization
+  - Naive Bayes classification
+  - Evaluation metrics
 
 ### Frontend
-- React
-- Vite
-- Bootstrap
-- Axios
+- **React**: JavaScript library for building the user interface
+- **Vite**: Next-generation frontend build tool
+- **Bootstrap**: CSS framework for responsive design
+- **Axios**: Promise-based HTTP client for API requests
 
 ## Project Structure
 
 ```
-├── app.py                  # Flask application with API endpoints
-├── spam_classifier.py      # Spam classification model with NLP techniques
-├── nlp_techniques.py       # Comprehensive NLP techniques implementation
+├── api_server.py            # Flask API server with endpoints
+├── spam_detection_service.py # Spam detection service orchestrating the classification process
+├── nlp_engine.py            # Core NLP algorithms and techniques implementation
 ├── requirements.txt        # Python dependencies
 ├── spam.csv                # Dataset
 ├── frontend/               # React frontend
@@ -55,11 +58,11 @@ The system achieves high accuracy (98.21%) in distinguishing between spam and le
 │   │   └── App.css         # Styles
 ```
 
-The backend code is organized into just 3 files for better maintainability:
+The backend code is organized into just 3 files with clear, descriptive names for better maintainability:
 
-1. **app.py**: Flask application with API endpoints
-2. **spam_classifier.py**: Main spam classifier that uses NLP techniques
-3. **nlp_techniques.py**: Implementation of all NLP techniques used in the project
+1. **api_server.py**: Flask API server providing endpoints for the frontend to interact with
+2. **spam_detection_service.py**: Service layer that orchestrates the entire spam detection process
+3. **nlp_engine.py**: Core implementation of all NLP algorithms and techniques used in the project
 
 ## Project Flow
 
@@ -143,7 +146,7 @@ The backend code is organized into just 3 files for better maintainability:
 
 2. Install Node.js dependencies:
    ```
-   npm install
+   npm install¬
    ```
 
 3. Start the development server:
@@ -155,11 +158,31 @@ The backend code is organized into just 3 files for better maintainability:
 
 ## How to Use
 
+### Installation
+
+1. **Clone the repository**:
+   ```
+   git clone <repository-url>
+   cd sms-spam-detection
+   ```
+
+2. **Install backend dependencies**:
+   ```
+   pip install -r requirements.txt
+   ```
+
+3. **Install frontend dependencies**:
+   ```
+   cd frontend
+   npm install
+   cd ..
+   ```
+
 ### Running the Application
 
 1. **Start the Backend Server**:
    ```
-   python app.py
+   python api_server.py
    ```
    The first time you run this, it will train the model which may take a few minutes. The server will be available at http://localhost:5000.
 
@@ -172,6 +195,12 @@ The backend code is organized into just 3 files for better maintainability:
 
 3. **Access the Web Interface**:
    Open your browser and navigate to http://localhost:5173.
+
+### Troubleshooting
+
+- **Backend Server Offline**: If you see "Backend server is offline" message, make sure the Flask server is running on port 5000.
+- **Model Training Issues**: If the model fails to train, check that the spam.csv file is in the root directory.
+- **Frontend Connection Issues**: Ensure the backend URL in the frontend code is set to http://localhost:5000.
 
 ### Using the Classifier
 
@@ -258,9 +287,63 @@ This project implements several advanced NLP techniques from scratch to demonstr
 - **Performance Analysis**: Evaluates and reports model performance
 - **Prediction Service**: Provides classification for new messages
 
+## Implementation Details
+
+### File Structure and Responsibilities
+
+1. **`api_server.py`**
+   - Provides RESTful API endpoints for the frontend
+   - Handles HTTP requests and responses
+   - Routes requests to the spam detection service
+   - Endpoints: `/api/classify`, `/api/train`, `/api/nlp-techniques`, `/api/health`
+
+2. **`spam_detection_service.py`**
+   - Orchestrates the spam detection process
+   - Manages data loading and preprocessing
+   - Coordinates model training and evaluation
+   - Handles prediction requests
+   - Extracts important features for classification
+
+3. **`nlp_engine.py`**
+   - Implements core NLP algorithms from scratch
+   - Contains text preprocessing functions
+   - Implements TF-IDF vectorization
+   - Provides Naive Bayes classification
+   - Includes evaluation metrics
+
+### NLP Pipeline
+
+1. **Text Preprocessing**
+   - Text normalization (lowercase, whitespace removal)
+   - Intelligent cleaning (preserving spam indicators like URLs, emails)
+   - Tokenization (splitting text into words)
+   - Stopword removal (filtering common words)
+   - Stemming (reducing words to their root form)
+   - N-gram extraction (capturing word sequences)
+
+2. **Feature Extraction**
+   - TF-IDF vectorization
+   - Term frequency calculation
+   - Inverse document frequency calculation
+   - Feature weighting
+
+3. **Classification**
+   - Naive Bayes algorithm implementation
+   - Conditional probability calculation
+   - Laplace smoothing for unseen words
+   - Log probability to prevent underflow
+   - Feature importance analysis
+
+4. **Evaluation**
+   - Accuracy measurement (98.21%)
+   - Precision calculation (96.43%)
+   - Recall determination (90.00%)
+   - F1-score computation (93.10%)
+   - Confusion matrix analysis
+
 ## Dataset
 
-The application uses the SMS Spam Collection dataset, which contains labeled SMS messages classified as spam or ham.
+The application uses the SMS Spam Collection dataset, which contains labeled SMS messages classified as spam or ham. The dataset contains 5,574 messages, with 747 spam messages (13.41%) and 4,827 ham messages (86.59%).
 
 ## License
 
