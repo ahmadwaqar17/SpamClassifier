@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import Header from './components/Header'
-import Footer from './components/Footer'
+
 import SpamClassifier from './components/SpamClassifier'
 import axios from 'axios'
 
@@ -42,8 +42,6 @@ function App() {
 
         <SpamClassifier />
       </main>
-
-      <Footer />
     </div>
   )
 }

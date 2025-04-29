@@ -115,4 +115,4 @@ if __name__ == '__main__':
     print("Training model with improved NLP techniques...")
     classifier.train('spam.csv')
     
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run( host='0.0.0.0', port=5000)
